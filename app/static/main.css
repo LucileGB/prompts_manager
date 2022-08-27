@@ -1,0 +1,34 @@
+html, body {
+    margin: 0;
+    /* height: 100vh; */
+    width: 100%;
+}
+
+body {
+    background-color:#FEFBF6;
+    color: #3D3C42;
+    display: flex;
+    flex-flow: column;
+}
+
+.banner {
+    flex-grow: 1;
+    height: 10%;
+    padding: 2%;
+    background-color: #7F5283;
+    color: #A6D1E6;
+}
+
+.banner > a {
+   color: #A6D1E6;
+   font-size: large;
+   font-weight: bold;
+   font-style: italic;
+   text-decoration: none;
+   margin-right: 1%;
+}
+
+h1 {
+    color: #3D3C42;
+    text-align: center;
+}

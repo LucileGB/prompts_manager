@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href={{ url_for('static', filename='icon.png') }}/>
+    <link rel="stylesheet" href='/static/main.css' />
+    <title>Prompt collector</title>
+</head>
+<body>
+    <!--Banner will have to use buttons rather than links-->
+    <!--So as to allow navigation from any page-->
+    <nav class="banner">
+        <a href="/">Home</a>
+        <a href="/prompts">Prompts</a>
+    </nav>
+    
+    <h1>{% block title %}Default Title{% endblock %}</h1>
+
+    {% block page_content %}
+    {% endblock %}
+
+</body>
+</html>

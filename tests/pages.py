@@ -11,9 +11,13 @@ class TestPages(unittest.TestCase):
 
     def test_home(self):
         home = self.app.get('/')
-        self.assertIn(b'Accueil', home.data)
+        self.assertIn(b'Home', home.data)
         self.assertEqual(200, home.status_code)
 
+    def test_prompts_list(self):
+        prompts = self.app.get('/prompts')
+        self.assertIn(b'Your Prompts', prompts.data)
+        self.assertEqual(200, prompts.status_code)
 
 if __name__ == '__main__':
     unittest.main()
