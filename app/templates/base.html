@@ -7,17 +7,17 @@
     <title>Prompt collector</title>
 </head>
 <body>
-    <!--Banner will have to use buttons rather than links-->
-    <!--So as to allow navigation from any page-->
     <nav class="banner">
-        <a href="/">Home</a>
-        <a href="/prompts">Prompts</a>
+        <a href="{{ url_for('home') }}">Home</a>
+        <a href="{{ url_for('prompts') }}">Prompts</a>
     </nav>
     
     <h1>{% block title %}Default Title{% endblock %}</h1>
 
-    {% block page_content %}
-    {% endblock %}
+    <section class="main_body">
+        {% block page_content %}
+        {% endblock %}
+    </section>
 
 </body>
 </html>

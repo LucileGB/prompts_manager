@@ -57,7 +57,8 @@ __pypackages__/
 
 # Environments
 venv/
-
+.flaskenv
+.env
 
 # IDE
 .vscode/

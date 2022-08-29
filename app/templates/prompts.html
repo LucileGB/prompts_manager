@@ -1,2 +1,44 @@
 {% extends "base.html" %}
+
 {% block title %}Your Prompts{% endblock %}
+
+{% block page_content %}
+<section class="prompts_list">
+    {% if prompts %}
+    <ul>
+    {% for prompt in prompts %}
+        <li>
+            {{ prompt }}
+            <button class="edit_btn">Edit</button>
+            <button class="del_btn">Delete</button>
+        </li>
+    {% endfor %}
+    </ul>
+
+    {% else %}
+    <p>No prompt for now!</p>
+ 
+    {% endif %}    
+</section>
+
+<section>
+
+    <form action="" method="POST">
+        {% if 'csrf_token' in tagset_form %}
+            {{ tagset_form.csrf_token }}
+        {% endif %}
+        {{ tagset_form['url'] }}
+        {{ tagset_form['submit'] }}
+    </form>
+
+    <form action="" method="POST">
+        {% if 'csrf_token' in prompt_form %}
+            {{ prompt_form.csrf_token }}
+        {% endif %}
+
+        {{ prompt_form['prompt'] }}
+        {{ prompt_form['submit'] }}
+    </form>
+    
+</section>
+{% endblock %}
