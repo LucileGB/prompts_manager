@@ -31,7 +31,7 @@ class TestGet(unittest.TestCase):
     def test_all_columns_are_here(self):
         prompts = self.db.get_prompts_list()
         self.assertEqual(
-            ("Amateur Sleuth Who Sees Ghosts & Person Whose Death...", "null"),
+            ("Amateur Sleuth Who Sees Ghosts & Person Whose Death...", "null", 1),
             prompts[0]
             )
 
@@ -52,9 +52,8 @@ class TestGet(unittest.TestCase):
         self.assertIn("DROP TABLE prompts;", prompts[5])
 
         self.db.edit_prompt_body("DROP TABLE prompts;", "DROP TABLE prompts;")
-        self.db.delete_prompt("DROP TABLE prompts;")
         prompts = self.db.get_prompts_list()
-        self.assertEqual(len(prompts), 5)
+        self.assertEqual(len(prompts), 6)
 
     def test_prompt_creation(self):
         prompt = "A riveting idea"
@@ -76,7 +75,7 @@ class TestGet(unittest.TestCase):
         pass # test with list, then prompt here
 
     def test_delete_prompt(self):
-        self.db.delete_prompt("Amateur Sleuth Who Sees Ghosts & Person Whose Death...")
+        self.db.delete_prompt(1)
         prompts = self.db.get_prompts_list()
 
         self.assertEqual(len(prompts), 4)

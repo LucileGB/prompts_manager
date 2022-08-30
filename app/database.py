@@ -32,7 +32,7 @@ class Database():
 
     @db_handler
     def get_prompts_list(self):
-        response = self.cursor.execute("select * from prompts")
+        response = self.cursor.execute("select *, rowid from prompts")
         return response.fetchall()
 
     @db_handler
@@ -51,9 +51,10 @@ class Database():
         self.conn.commit()
 
     @db_handler
-    def delete_prompt(self, prompt):
+    def delete_prompt(self, prompt_id):
+        print("aaa")
         self.cursor.execute("""DELETE FROM prompts WHERE
-                            body = ?""", (prompt,))
+                            rowid = ?""", (str(prompt_id),))
         self.conn.commit()
 
     @db_handler

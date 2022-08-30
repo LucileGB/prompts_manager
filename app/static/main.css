@@ -28,6 +28,15 @@ body {
    margin-right: 1%;
 }
 
+.main_body {
+    min-height: 70vh;
+    margin-left: 2vh;
+    margin-right: 2vh;
+    padding: 5vh;
+    border: thick dotted #A6D1E6;
+    border-radius: 5%;
+}
+
 h1 {
     color: #3D3C42;
     text-align: center;

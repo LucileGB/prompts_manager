@@ -2,7 +2,8 @@ import sys
 import unittest
 
 sys.path.append('../app')
-from app import app
+from app import app, forms
+
 
 
 class TestGet(unittest.TestCase):
@@ -34,7 +35,9 @@ class TestPromptListTagsetForm(unittest.TestCase):
 
     def test_prompts_list_post(self):
         user_input = {"url": "https://archiveofourown.org/tag_sets/10303"}
-        prompts = self.app.post("/prompts", data=user_input)
+        prompts = self.app.post("/prompts",
+            data=user_input,
+            follow_redirects=True)
 
         self.assertEqual(200, prompts.status_code)
 
@@ -54,12 +57,14 @@ class TestPromptListPromptForm(unittest.TestCase):
 
     def test_prompts_list_post(self):
         user_input = {"prompt": "A witty prompt"}
-        prompts = self.app.post("/prompts", data=user_input)
+        prompts = self.app.post("/prompts",
+            data=user_input,
+            follow_redirects=True
+            )
 
         self.assertEqual(200, prompts.status_code)
+        self.assertIn(b"A witty prompt", prompts.data)
 
-    def test_prompts_list_post_empty_prompt(self):
-        pass
 
 if __name__ == '__main__':
     unittest.main()

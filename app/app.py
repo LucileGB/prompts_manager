@@ -23,35 +23,33 @@ def home():
 def prompts():
     tagset_form = TagsetForm()
     prompt_form = PromptForm()
+    db = Database()
+    prompts = db.get_prompts_list()
 
-    prompts = [{'content': 'Message One',
-            'collection': 'Message One Content'},
-        {'content': 'Message Two',
-            'collection': 'Message Two Content'}
-        ]
-    
     if request.method == "GET":
         return render_template("prompts.html",
                                 prompts=prompts,
                                 tagset_form=tagset_form,
-                                prompt_form=prompt_form
+                                prompt_form=prompt_form,
+
             )
 
     if request.method == "POST":
         if tagset_form.validate_on_submit():
-            print(tagset_form.url.data)
             scraper = TagSetScraper(tagset_form.url.data)
             prompts = scraper.get_original()
-            print(prompts)
+            db.create_prompt_list(prompts)
 
         if prompt_form.validate_on_submit():
-            print(tagset_form)
+            db.create_prompt(prompt_form.prompt.data)
 
-        return render_template("prompts.html",
-                                prompts=prompts,
-                                tagset_form=tagset_form,
-                                prompt_form=prompt_form
-            )
+        return redirect(url_for('prompts'))
+
+@app.route('/delete/<int:id>', methods=('POST',))
+def prompt_delete(id):
+    db = Database()
+    db.delete_prompt(id)
+    return redirect(url_for('prompts'))
 
 @app.route('/500')
 def error500():
