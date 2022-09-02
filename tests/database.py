@@ -87,7 +87,7 @@ class TestGet(unittest.TestCase):
             prompts[0][0])
 
     def test_edit_prompt_body(self):
-        self.db.edit_prompt_body("Amateur Sleuth Who Sees Ghosts & Person Whose Death...",
+        self.db.edit_prompt_body(1,
                             "Expert Sleuth Who Sees Living People & Person Whose Life...")
         prompts = self.db.get_prompts_list()
 
@@ -107,3 +107,7 @@ class TestGet(unittest.TestCase):
         self.assertTrue(
             "Mystery" ==
             prompts[0][1])
+
+
+if __name__ == '__main__':
+    unittest.main()

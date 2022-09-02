@@ -24,6 +24,11 @@ class TestGet(unittest.TestCase):
         self.assertIn(b"Your Prompts", prompts.data)
         self.assertEqual(200, prompts.status_code)
 
+    def test_prompts_list(self):
+        prompts = self.app.get("/prompts/edit/")
+        self.assertIn(b"Your Prompts", prompts.data)
+        self.assertEqual(200, prompts.status_code)
+
 
 class TestPromptListTagsetForm(unittest.TestCase):
     def setUp(self):
