@@ -20,9 +20,24 @@ Though the app as it is could have been coded with a GUI library such as Tkinter
 ## Usage
 Clone the repository, then [set up and activate your virtual environment](https://docs.python.org/3.10/library/venv.html).
 
-Still using your console, install the required external packages with the command `pip install -r requirements.txt`, then navigate to the `app` folder and use the command`flask --app app run`.
+Still using your console, install the required external packages with the command `pip install -r requirements.txt`.
 
-The server will launch and will mention an URL (it should be http://127.0.0.1:5000/, but don't be alarmed if this is different). Access it with your navigator of choice.
+Then, at the same level as the .app folder, create a file named `.env` and a file named `.flaskenv`. Inside `env`, indicate a secret key like so:
+
+```
+SECRET_KEY='MY_SECRET_KEY'
+```
+
+Inside `.flaskend`, set these two variables like so:
+
+```
+FLASK_APP=app/app.py
+FLASK_DEBUG=True
+```
+
+Then, either simply type `flask run` (since you set up the path to the app in `.flaskenv`) or navigate to the `app` folder and use the command`flask --app app run`. If you want to deactivate debug mode, you can set up FLASK_DEBUG to False.
+
+The server will launch and you'll see an URL mentioned in the console (it should be http://127.0.0.1:5000/, but don't be alarmed if this is different). Access it with your navigator of choice.
 
 ## Credits
 Site icon by [Afian Rochmah Afif](https://www.flaticon.com/authors/afian-rochmah-afif)
