@@ -1,24 +1,43 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, TextAreaField
-from wtforms.validators import DataRequired, Length, Regexp, ValidationError
+from wtforms.validators import DataRequired, Length, Regexp
 
 
 class TagsetURL(Regexp):
     def __init__(self, message=None):
-        super().__init__("https://archiveofourown.org/tag_sets/", message=message)
+        super().__init__(
+            "https://archiveofourown.org/tag_sets/",
+            message=message
+            )
 
     def __call__(self, form, field):
         message = self.message
         if message is None:
-            message = "This is not a proper AO3 tagset URL." #if this doesn't work : = field.gettext("...")
+            # For cases where field.gettext("...") doesn't work
+            message = "This is not a proper AO3 tagset URL."
         super().__call__(form, field, message)
 
 
 class TagsetForm(FlaskForm):
-    url = StringField("Tagset URL", validators=[DataRequired(), TagsetURL()])
+    url = StringField(
+        "Tagset URL",
+        validators=[DataRequired(), TagsetURL()]
+        )
     submit = SubmitField("Submit")
 
 
 class PromptForm(FlaskForm):
-    prompt = TextAreaField("Tagset URL", validators=[DataRequired(), Length(max=200)])
+    prompt = TextAreaField(
+        "Prompt",
+        validators=[DataRequired(), Length(max=500)]
+        )
+    submit = SubmitField("Submit")
+
+
+class EditPromptForm(FlaskForm):
+    id = StringField("Id", validators=[DataRequired(), ])
+    body = TextAreaField(
+        "Prompt",
+        validators=[DataRequired(), Length(max=500)]
+        )
     submit = SubmitField("Submit")

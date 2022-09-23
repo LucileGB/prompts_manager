@@ -35,8 +35,8 @@ class AO3Formatter:
     def prepare_prompts(titles, prompts):
         """
         Take a list of titles, a list of prompts lists,
-        and make them into dictonaries.
-        
+        and make them into dictionaries.
+
         Format: {'Fantasy': ['prompt', 'prompt', 'prompt'],
                 'Mystery': ['prompt', 'prompt', 'prompt']}
         """
@@ -56,14 +56,14 @@ class TagSetScraper:
     def __init__(self, url):
         self.formatter = AO3Formatter()
         self.url = url
-    
+
     @property
     def soup(self):
         page = requests.get(self.url)
         return BeautifulSoup(page.content, 'lxml')
 
     def original_h3(self, tag):
-        return tag.name=='h3' and 'Original Work' in tag.contents[0]
+        return tag.name == 'h3' and 'Original Work' in tag.contents[0]
 
     def get_original(self):
         """

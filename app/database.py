@@ -9,7 +9,8 @@ class Database():
         self.conn = sqlite3.connect(db_name)
         self.cursor = self.conn.cursor()
 
-        self.cursor.execute("CREATE TABLE IF NOT EXISTS prompts (body, collection)")
+        self.cursor.execute("""CREATE TABLE IF NOT EXISTS
+                            prompts (body, collection)""")
         self.conn.close()
 
     def db_handler(func):
@@ -24,7 +25,7 @@ class Database():
             self.cursor = self.conn.cursor()
 
             result = func(self, *args, **kwargs)
-            
+
             self.conn.close()
             return result
 
@@ -37,14 +38,12 @@ class Database():
 
     @db_handler
     def create_prompt(self, prompt):
-        #TODO: implement duplicate spotting
         self.cursor.execute("""INSERT INTO prompts(body, collection)
                             VALUES(?, 'null')""", (prompt,))
         self.conn.commit()
 
     @db_handler
     def create_prompt_list(self, prompts):
-        #TODO: implement duplicate spotting
         prompts = [(pr,) for pr in prompts]
         self.cursor.executemany("""INSERT INTO prompts(body, collection)
                             VALUES(?, 'null')""", prompts)
@@ -52,16 +51,15 @@ class Database():
 
     @db_handler
     def delete_prompt(self, prompt_id):
-        print("aaa")
         self.cursor.execute("""DELETE FROM prompts WHERE
                             rowid = ?""", (str(prompt_id),))
         self.conn.commit()
 
     @db_handler
-    def edit_prompt_body(self, prompt, new_prompt):
+    def edit_prompt_body(self, prompt_id, new_prompt):
         self.cursor.execute("""UPDATE prompts
                             SET body = ?
-                            WHERE body = ?""", (new_prompt, prompt))
+                            WHERE rowid = ?""", (new_prompt, prompt_id))
         self.conn.commit()
 
     @db_handler

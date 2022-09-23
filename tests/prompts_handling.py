@@ -12,11 +12,12 @@ class TestPromptsHandling(unittest.TestCase):
         self.app = app.app.test_client()
 
         self.db = database.Database("test_db.db")
-        prompts = ["Amateur Sleuth Who Sees Ghosts & Person Whose Death...",
-                    "Big Bad Villain & Plucky Young Chosen One (OW)",
-                    "Brilliant But Socially Awkward Male Inventor &...",
-                    "Chosen One & Former Chosen One Who is Now Retired",
-                    "Disabled Male Veteran of Magical War & Trauma...",
+        prompts = [
+            "Amateur Sleuth Who Sees Ghosts & Person Whose Death...",
+            "Big Bad Villain & Plucky Young Chosen One (OW)",
+            "Brilliant But Socially Awkward Male Inventor &...",
+            "Chosen One & Former Chosen One Who is Now Retired",
+            "Disabled Male Veteran of Magical War & Trauma...",
             ]
         self.db.create_prompt_list(prompts)
 
@@ -26,28 +27,26 @@ class TestPromptsHandling(unittest.TestCase):
 
     def test_delete_prompt(self):
         user_input = {"prompt": "A witty prompt"}
-        prompts = self.app.post("/prompts",
+        prompts = self.app.post(
+            "/prompts",
             data=user_input,
             follow_redirects=True
             )
 
-        self.assertEqual(200, prompts.status_code)
-        self.assertIn(b"A witty prompt", prompts.data)
-
-    def test_access_edit_page(self):
-        user_input = {"prompt": "A witty prompt"}
         self.assertEqual(200, prompts.status_code)
         self.assertIn(b"A witty prompt", prompts.data)
 
     def test_edit_prompt(self):
         user_input = {"prompt": "A witty prompt"}
-        prompts = self.app.post("/prompts",
+        prompts = self.app.post(
+            "/prompts",
             data=user_input,
             follow_redirects=True
             )
 
         self.assertEqual(200, prompts.status_code)
         self.assertIn(b"A witty prompt", prompts.data)
+
 
 if __name__ == '__main__':
     unittest.main()
