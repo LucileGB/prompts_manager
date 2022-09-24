@@ -1,2 +1,13 @@
 {% extends "base.html" %}
+
 {% block title %}Home{% endblock %}
+
+{% block page_content %}
+
+<p>This is a sample homepage full of nothing. Alas! I lack the 
+    wit to fill it. How unfortunate.</p>
+
+<p>With that said, you're probably here for the
+    <a href="{{ url_for('prompts') }}">prompt page</a>.</p>
+
+{% endblock %}
